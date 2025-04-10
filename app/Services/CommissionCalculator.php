@@ -10,7 +10,6 @@ class CommissionCalculator
 	private const PRIVATE_FREE_COUNT = 3;
 
 	const OPERATION_TYPE_DEPOSIT = 'deposit';
-	const OPERATION_TYPE_WITHDRAW = 'withdraw';
 	const USER_TYPE_BUSINESS = 'business';
 
 	public function __construct(ExchangeRate $exchangeRateService)
@@ -37,8 +36,7 @@ class CommissionCalculator
 	{
 		$amount = $transaction['amount'];
 		$currency_from = $transaction['currency'];
-		$currency_to = $_ENV["CURRENCY"];
-		$amount = $this->exchangeRateService->exchange($amount, $currency_from, $currency_to);
+		$amount = $this->exchangeRateService->exchange($amount, $currency_from, $_ENV['CURRENCY']);
 
 		//deposit
 		if ($transaction['operation_type'] === self::OPERATION_TYPE_DEPOSIT) return $amount * 0.0003;

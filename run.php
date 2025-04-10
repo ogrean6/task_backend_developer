@@ -4,9 +4,7 @@ use App\Services\CommissionCalculator;
 use App\Services\CsvReader;
 use App\Services\ExchangeRate;
 
-require __DIR__ . '/vendor/autoload.php';
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
-$dotenv->load();
+require_once 'bootstrap.php';
 
 $csvReader = new CsvReader('input.csv', [
 	'date',
@@ -15,7 +13,7 @@ $csvReader = new CsvReader('input.csv', [
 	'operation_type',
 	'amount',
 	'currency',
-]);
+], false);
 $exchangeRate = new ExchangeRate();
 $commissionCalculator = new CommissionCalculator($exchangeRate);
 
